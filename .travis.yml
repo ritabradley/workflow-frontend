@@ -6,3 +6,16 @@ before_install:
   - docker build -t ritabradley/workflow-frontend -f Dockerfile.dev .
 script:
   - docker run -e CI=true ritabradley/workflow-frontend npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-1"
+  app: "workflow-frontend"
+  env: "wf-frontnend-env"
+  bucket_name: "elasticbeanstalk-us-west-1-180623912641"
+  bucket_path: "workflow-frontend"
+
+  on:
+    branch: main
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"

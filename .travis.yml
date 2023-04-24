@@ -1,0 +1,8 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t ritabradley/workflow-frontend -f Dockerfile.dev .
+script:
+  - docker run -e CI=true ritabradley/workflow-frontend npm run test
